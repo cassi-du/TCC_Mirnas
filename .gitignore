@@ -1,67 +1,46 @@
 # Checkpoints automáticos
 #**/.ipynb_checkpoints/ -> tirar o comentario faz com que as saidas (outputs) dos notebooks sejam ignoradas
 
-# ========================
 # Arquivos de sistema
-# ========================
 .DS_Store
 Thumbs.db
 
-# ========================
 # Logs
-# ========================
 *.log
 
-# ========================
 # Arquivos temporários
-# ========================
 *.tmp
 *.temp
 *.swp
 *.bak
 
-# ========================
 # Arquivos compilados / build
-# ========================
 dist/
 build/
 out/
 bin/
 obj/
 
-# ========================
-# Dependências
-# ========================
-node_modules/
-vendor/
 
-# ========================
 # Ambiente / variáveis
-# ========================
 .env
 .env.*
 *.local
 
-# ========================
+
 # IDEs e editores
-# ========================
 .vscode/
 .idea/
 *.iml
 
-# ========================
-# Testes / cobertura
-# ========================
-coverage/
 
-# ========================
 # Arquivos de mídia e documentos
-# ========================
 *.png
 *.jpg
 *.jpeg
 *.gif
 *.mp4
+*.csv
 
 *.txt
 !requirements.txt

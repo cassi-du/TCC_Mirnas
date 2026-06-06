@@ -1,67 +1,126 @@
 # Predição de Câncer de Pâncreas via Expressão de miRNAs
 
-Este projeto faz parte do **Trabalho de Conclusão de Curso (TCC)** e tem como objetivo o **treinamento e predição de câncer de pâncreas** a partir da análise de **valores de expressão de microRNAs (miRNAs) do sangue**.
+Este projeto faz parte de um **Trabalho de Conclusão de Curso (TCC)** e tem como objetivo o **treinamento e predição de câncer de pâncreas** a partir da análise de **valores de expressão de microRNAs (miRNAs)** obtidos através de amostras de sangue.
 
-O projeto utiliza técnicas de **Machine Learning supervisionado**, com foco atual no algoritmo **Random Forest**, visando maior robustez e melhor desempenho em comparação a abordagens anteriores baseadas em redes neurais, com treinamento via CPU e GPU.
-
----
-
-# Objetivo do Projeto
-
-- Analisar datasets de expressão de miRNAs
-- Tratar desbalanceamento de classes
-- Selecionar características relevantes
-- Treinar modelos de Machine Learning
-- Realizar predições para auxílio no diagnóstico de câncer de pâncreas
+O projeto utiliza uma arquitetura multimodelo e multiplataforma de **Machine Learning supervisionado**, aplicando paralelismo em GPU para modelos de larga escala e execuções tradicionais via CPU.
 
 ---
 
-# Tecnologias Utilizadas
+## 🎯 Objetivo do Projeto
 
-- **Python 3.10+**
-- **Scikit-learn**
-- **Random Forest**
-- **SMOTE (balanceamento de classes)**
-- **Pandas / NumPy**
-- **Matplotlib**
-- **Joblib / Pickle**
+- Analisar conjuntos de dados complexos de expressão de miRNAs.
+- Mitigar o desbalanceamento severo de classes utilizando técnicas de oversampling.
+- Selecionar características biológicas relevantes através de SHAP e importância por permutação.
+- Treinar, avaliar e comparar múltiplos modelos de Machine Learning (CPU e GPU).
+- Fornecer métricas consolidadas para auxílio no diagnóstico precoce do câncer de pâncreas.
 
 ---
 
-# Estrutura de Branches
+## 🗂️ Estrutura Geral do Projeto
 
-O projeto está atualmente organizado da seguinte forma:
+Abaixo está representada a árvore de diretórios do projeto organizada por modelo e hardware de execução:
 
-| Branch | Descrição |
-|------|----------|
-| `master` | Primeira abordagem utilizando Keras (descontinuada) |
-| `main` | Versão estável utilizando Random Forest, treinamento via CPU
-| `develop` | Branch de testes e experimentos, várias arvores e modelos de treino, treinamento via GPU |
+```text
+TCC/
+├── Databases/                      # Conjuntos de dados brutos e processados
+├── RandonForest - CPU/             # Pipeline Random Forest para execução em CPU
+│   ├── models/                    # Modelos treinados salvos (.joblib)
+│   ├── models_Tree/               # Exportação individual de árvores de decisão
+│   ├── plots/                     # Gráficos gerados (Matplotlib)
+│   └── RandonForest_CPU.ipynb     # Notebook principal CPU
+│
+│
+│
+├── RandonForest - GPU/             # Pipeline Random Forest acelerado por GPU (cuML)
+│   ├── models/                    # Modelos GPU salvos
+│   ├── models_Tree_GPU/           # Árvores estruturadas para GPU
+│   ├── plots/                     # Gráficos de desempenho GPU
+│   └── RandonForest_GPU.ipynb     # Notebook principal GPU
+│
+│
+│
+├── SVM/                            # Pipeline Support Vector Machine
+│   ├── models/
+│   ├── models_Tree_GPU/
+│   ├── plots/
+│   └── SVM.ipynb                  # Notebook principal SVM
+│
+│
+├── XGBoost/                        # Pipeline Xtreme Gradient Boosting
+│   ├── models/
+│   ├── models_Tree_GPU/
+│   ├── plots/
+│   ├── Top20_miRNAs_XGBoost.csv   # Seleção de features gerada pelo modelo
+│   └── XGBoost.ipynb              # Notebook principal XGBoost
+│
+│
+├── .gitignore                      # Filtros de arquivos para o Git
+├── environment.yml                # Configuração do ambiente Conda para GPU (WSL)
+├── readme.md                      # Documentação do projeto
+└── requirements.txt               # Dependências Python para pipelines CPU/Padrão
+
+
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Linguagem:** Python 3.10
+- **Modelagem Padrão (CPU):** Scikit-learn (Random Forest, SVM), XGBoost
+- **Aceleração por Hardware (GPU):** RAPIDS cuML (Random Forest GPU via CUDA 12.0)
+- **Processamento de Dados & Balanceamento:** Pandas, NumPy, Scipy, Imbalanced-learn (SMOTE)
+- **Explicabilidade & Visualização:** SHAP, Matplotlib
+- **Persistência de Modelos:** Joblib
 
 ---
 
-# Estrutura Geral do Projeto
+## 🚀 Como Configurar e Rodar o Projeto
 
-```Project
-Projeto-TCC/
-├── Databases/                  # Dados brutos e processados
-│   ├── database.csv            # Dataset original
-│   └── database_processed.csv  # Dados tratados para análise
-│
-├── models/                     # Modelos treinados e normalizadores
-│   ├── model.joblib            # Modelo treinado
-│   └── normalizadores.model    # Normalizador utilizado no treino
-│
-├── plots/                      # Imagens e gráficos gerados durante o treino
-│   ├── treino_rf.png
-│   └── distribuicao_mirnas.png
-│
-├── src/                        # Notebooks ou scripts
-│   └── analysis.ipynb          # Notebook principal com treinamento e predição
-│
-├── requirements.txt            # Bibliotecas necessárias
-├── README.md                   # Documentação do projeto
-└── .gitignore                  # Arquivos e pastas ignoradas pelo Git
-```
+O projeto é dividido em dois ecossistemas de execução. Siga o guia abaixo dependendo do modelo que deseja rodar:
 
-# Futuro tópico: como rodar ambiente virttual, não realizado ainda pois iremos implementar ambiente Conda e Cuml
+### 🔹 Cenário A: Executando os Modelos Padrão (CPU / Instalação Direta)
+*Modelos suportados: `RandonForest - CPU`, `SVM` e `XGBoost`.*
+
+Esta configuração utiliza o ambiente virtual padrão do Python (`venv`) e instala as dependências via `requirements.txt`. Pode ser executada nativamente no seu sistema operacional (Windows ou Linux).
+
+```bash
+# 1. Certifique-se de estar na pasta raiz do projeto (TCC) após o clone
+cd TCC
+
+# 2. Crie o ambiente virtual com Python 3.10+
+python -m venv venv
+
+# 3. Ative o ambiente virtual
+# No Windows (Prompt de Comando):
+venv\Scripts\activate
+# No Windows (PowerShell):
+.\venv\Scripts\activate
+# No Linux/macOS:
+source venv/bin/activate
+
+# 4. Atualize o gerenciador de pacotes pip e instale as dependências
+pip install --upgrade pip
+pip install -r requirements.txt
+
+
+### 🔹 Cenário B: Executando o Modelo Acelerado por GPU (WSL + Conda)
+*Se aplica exclusivamente ao modelo: `RandonForest - GPU` (utilizando RAPIDS cuML).*
+
+Este passo-a-passo pressupõe que você já abriu o terminal do Ubuntu dentro do WSL, realizou o `git clone` e **já está posicionado dentro da pasta do projeto**.
+
+#### Passo 1: Instalar o Miniconda (Caso ainda não tenha no Ubuntu do WSL)
+Se você já possui o comando `conda` funcionando no terminal do WSL, pule para o **Passo 2**. Caso contrário, execute os comandos abaixo:
+
+```bash
+# Baixa o instalador do Miniconda para Linux
+wget [https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh](https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh)
+
+# Executa a instalação (pressione Enter e digite 'yes' quando solicitado)
+bash Miniconda3-latest-Linux-x86_64.sh
+
+# Reinicialize o shell para ativar o comando conda
+exec bash
+
+# 2. Cria o ambiente virtual completo com cuML, CUDA 12.0 e Python 3.10 a partir do arquivo
+conda env create -f environment.yml
+
+# 3. Ative o ambiente virtual criado
+conda activate gpu_env
