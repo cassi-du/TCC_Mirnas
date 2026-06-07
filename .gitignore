@@ -1,5 +1,5 @@
 # Checkpoints automáticos
-#**/.ipynb_checkpoints/ -> tirar o comentario faz com que as saidas (outputs) dos notebooks sejam ignoradas
+#**/.ipynb_checkpoints/ -> saidas (outputs) dos notebooks
 
 # Arquivos de sistema
 .DS_Store
