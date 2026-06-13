@@ -58,7 +58,7 @@ TCC/
 ├── environment.yml                # Configuração do ambiente Conda para GPU (WSL)
 ├── readme.md                      # Documentação do projeto
 └── requirements.txt               # Dependências Python para pipelines CPU/Padrão
-
+```
 
 
 ## 🛠️ Tecnologias Utilizadas
@@ -99,17 +99,16 @@ source venv/bin/activate
 # 4. Atualize o gerenciador de pacotes pip e instale as dependências
 pip install --upgrade pip
 pip install -r requirements.txt
-
+```
 
 ### 🔹 Cenário B: Executando o Modelo Acelerado por GPU (WSL + Conda)
-*Se aplica exclusivamente ao modelo: `RandonForest - GPU` (utilizando RAPIDS cuML).*
+Passo exclusivo do modelo: RandonForest - GPU (utilizando RAPIDS cuML).
 
-Este passo-a-passo pressupõe que você já abriu o terminal do Ubuntu dentro do WSL, realizou o `git clone` e **já está posicionado dentro da pasta do projeto**.
+Apos abrir o terminal do Ubuntu dentro do WSL, realize o `git clone` e entao posicionado dentro da pasta do projeto.
 
 #### Passo 1: Instalar o Miniconda (Caso ainda não tenha no Ubuntu do WSL)
 Se você já possui o comando `conda` funcionando no terminal do WSL, pule para o **Passo 2**. Caso contrário, execute os comandos abaixo:
 
-```bash
 # Baixa o instalador do Miniconda para Linux
 wget [https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh](https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh)
 
